@@ -28,6 +28,7 @@ const NoteContextProvider = ({children}) => {
 
     const { state , dispatch } = useReducer(reducer , {type:'' , payload:''});
     const [notes , setNotes] = useState([]);
+    const [isLogin , setIsLogin] = useState(false);
     const encodedToken = localStorage.getItem('token');
     
     useEffect(() => {
@@ -49,7 +50,7 @@ const NoteContextProvider = ({children}) => {
     
 
 
-    return (<NoteContext.Provider value={{state , dispatch ,notes}}>{children}</NoteContext.Provider>)
+    return (<NoteContext.Provider value={{state , dispatch ,notes , isLogin , setIsLogin }}>{children}</NoteContext.Provider>)
 }
 
 export {useNote , NoteContextProvider}

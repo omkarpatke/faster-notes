@@ -2,12 +2,13 @@ import React , { useState } from 'react';
 import './NotesPage.css';
 import PinImg from '../../Images/pin.svg';
 import PinLight from '../../Images/pin-light.png';
-import {  NavLink } from 'react-router-dom'
+import {  useNavigate , NavLink } from 'react-router-dom'
 import { useNote } from '../../context/note-context';
 import { addNoteToBackend } from '../../api-calls/api-calls';
 
 export default function NotesPage() {
-  const {notes} = useNote();
+  const navigate = useNavigate();
+  const {notes , isLogin} = useNote();
   const [showForm , setShowForm] = useState(false);
   const [title , setTitle] = useState('');
   const [desc , setDesc] = useState('');
@@ -27,17 +28,23 @@ export default function NotesPage() {
 
    const addNote = (e) => {
      e.preventDefault();
-     const note = {
-       title,
-       desc,
-       time:new Date().toLocaleString(),
+     if(isLogin){
+      const note = {
+        title,
+        desc,
+        time:new Date().toLocaleString(),
+      }
+      console.log(note)
+      setTitle('');
+      setDesc('');
+      addNoteToBackend(note);
+      setTimeout(() => {
+        closeForm();
+      },500)
+     }else{
+         navigate('/login');
      }
-     setTitle('');
-     setDesc('');
-     addNoteToBackend(note);
-     setTimeout(() => {
-       closeForm();
-     },500)
+     
    }
 
    
