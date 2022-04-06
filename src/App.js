@@ -4,6 +4,7 @@ import { Routes , Route } from 'react-router-dom';
 import NotesPage from "./Pages/NotesPage/NotesPage";
 import Login from "./Pages/Login/Login";
 import SignUp from "./Pages/SignUp/SignUp";
+import Mockman from 'mockman-js';
 
 
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="" element={<NotesPage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/sign-up" element={<SignUp />}></Route>
+        <Route path="/mock" element={<Mockman />}></Route>
       </Routes>
     </div>
   );

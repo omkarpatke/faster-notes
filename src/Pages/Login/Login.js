@@ -1,8 +1,26 @@
 import React from 'react';
+import axios from 'axios';
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
+   const navigate = useNavigate();
+    const loginAsGuest = async () => {
+      try {
+        const response = await axios.post(`/api/auth/login`, {
+          email: "adarshbalika@gmail.com",
+          password: "adarshBalika123",
+        });
+        // saving the encodedToken in the localStorage
+        localStorage.setItem("token", response.data.encodedToken);
+        if(response.status === 200){
+          navigate('');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
   return (
     <>
     <div className="login-container">
@@ -18,8 +36,9 @@ export default function Login() {
 
                 <button className="forgot-password-link">Forgot your password?</button>
 
-                <button className="login-btn" type="submit"> Sign In </button>
+                <button className="login-btn" type="submit"> Login In </button>
             </form>
+            <button className="login-btn" onClick={loginAsGuest}> LogIn as Guest</button>
             <h2>OR</h2>
             <button className="signIn-with-google-btn"><i className="lni lni-google"></i> <span className='signInWithGoogleBtnText'>Sign in with google</span></button>
 
